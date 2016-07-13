@@ -1,0 +1,9 @@
+*.hex
+*.bin
+*.lst
+*.asm
+*.i
+*.dsk
+.*.swp
+.DS_Store
+
