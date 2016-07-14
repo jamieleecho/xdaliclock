@@ -65,6 +65,11 @@ Screen]({{site.url}}{{site.baseurl}}/assets/2016-07-13/Images/main.png)
 * Pressing \[6\] will display the date as YY-MM-DD in date mode.
 
 
+## Source Code
+The source code for xdaliclock can be found
+[here](https://github.com/jamieleecho/xdaliclock).
+
+
 ## Bugs
 * This program will allow entering a bogus date such as 2/31
 
