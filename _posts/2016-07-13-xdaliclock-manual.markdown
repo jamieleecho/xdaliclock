@@ -7,7 +7,6 @@ categories: xdaliclock manual coco
 ## xdaliclock
 [![Download]({{site.url}}{{site.baseurl}}/assets/Images/Download.png)](https://github.com/jamieleecho/xdaliclock/releases/download/v0.1.0/xdali.dsk)
 
-({{site.url}}{{site.baseurl}}/assets/2015-12-12/Images/GameAction.png)
 xdaliclock is a [Tandy/TRS-80 Color
 Computer](https://en.wikipedia.org/wiki/TRS-80_Color_Computer) port of [Jamie
 Zawinski's](https://www.jwz.org/)
