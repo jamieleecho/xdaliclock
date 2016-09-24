@@ -3,7 +3,7 @@ TARGET=xdali.dsk
 TEST_TARGET=test.dsk
 XDALI_BAS=xdali.bas
 XDALI_BIN=xdali.bin
-MESS_DIR=~/Applications/MacSDLMESS/mame0163
+MESS_DIR=~/Applications/mame
 MESS=$(MESS_DIR)/mess64
 
 $(TARGET) : $(XDALI_BAS) $(XDALI_BIN)
