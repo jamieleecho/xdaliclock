@@ -1,4 +1,3 @@
-#ifndef _c_stuff_c
 #include <coco.h>
 #include "c_stuff.h"
 
@@ -23,8 +22,6 @@ byte heapInit() {
                       sizeof(struct HeapBlock));
   return TRUE;
 }
-byte _heapDidInit = heapInit();
-
 
 void *calloc(unsigned num, unsigned sz) {
   sz = (num * sz) + sizeof(struct HeapBlock);
@@ -83,5 +80,3 @@ void walkHeap() {
 void abort() {
   exit(1);
 }
-
-#endif

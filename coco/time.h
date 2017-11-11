@@ -40,6 +40,7 @@ struct timezone {
   byte __IGNORE;
 };
 
+void timeInit(void);
 void gettimeofday(struct timeval *now, struct timezone *tzp);
 struct tm *localtime (struct timeval *time);
 byte timeSet(unsigned year, byte month, byte day, byte hour, byte minute, byte seconds);

@@ -1,31 +1,35 @@
-CFLAGS=-I../font --verbose -O2
+CFLAGS=-O2 -I../font 
+LDFLAGS=--org=0x2a00 --limit=0x7fff
 TARGET=xdali.dsk
+TARGET_BAS=$(TARGET:.dsk=.bas)
+TARGET_BIN=$(TARGET:.dsk=.bin)
+TARGET_C=$(TARGET:.dsk=.c)
 TEST_TARGET=test.dsk
-XDALI_BAS=xdali.bas
-XDALI_BIN=xdali.bin
+
 MESS_DIR=~/Applications/mame
-MESS=$(MESS_DIR)/mess64
+MESS=$(MESS_DIR)/mame64
 
-$(TARGET) : $(XDALI_BAS) $(XDALI_BIN)
+C_SOURCES=$(wildcard *.c)
+C_OBJS=$(patsubst %.c,%.o,$(C_SOURCES))
+
+$(TARGET) : $(TARGET_BAS) $(TARGET_BIN)
 	rm -f $@
 	decb dskini $@
-	decb copy $(XDALI_BAS) $@,"*.BAS" -t
+	decb copy $(TARGET_BAS) $@,"*.BAS" -t
 	decb attr $@,"*.BAS" -0
-	decb copy $(XDALI_BAS) $@,XDALI.BAS -t
-	decb attr $@,XDALI.BAS -0
-	decb copy $(XDALI_BIN) $@,XDALI.BIN
-	decb attr $@,XDALI.BIN -2 -b
+	decb copy $(TARGET_BAS) $@,$(shell echo $(TARGET_BAS) | tr a-z A-Z) -t
+	decb attr $@,$(shell echo $(TARGET_BAS) | tr a-z A-Z) -0
+	decb copy $(TARGET_BIN) $@,$(shell echo $(TARGET_BIN) | tr a-z A-Z)
+	decb attr $@,$(shell echo $(TARGET_BIN) | tr a-z A-Z) -2 -b
 
-$(TEST_TARGET) : $(XDALI_BAS) $(XDALI_BIN) testuint.bin testfp.bin testmem.bin \
-                 testtstr.bin mem.bin
+$(TEST_TARGET) : $(TARGET_BAS) testuint.bin testfp.bin testmem.bin \
+                 testtstr.bin
 	rm -f $@
 	decb dskini $@
-	decb copy $(XDALI_BAS) $@,"*.BAS" -t
+	decb copy $(TARGET_BAS) $@,"*.BAS" -t
 	decb attr $@,"*.BAS" -0
-	decb copy $(XDALI_BAS) $@,XDALI.BAS -t
-	decb attr $@,XDALI.BAS -0
-	decb copy $(XDALI_BIN) $@,XDALI.BIN
-	decb attr $@,XDALI.BIN -2 -b
+	decb copy $(TARGET_BAS) $@,$(shell echo $(TARGET_BAS) | tr a-z A-Z) -t
+	decb attr $@,$(shell echo $(TARGET_BAS) | tr a-z A-Z) -0
 	decb copy testuint.bin $@,TESTUINT.BIN
 	decb attr $@,TESTUINT.BIN -2 -b
 	decb copy testfp.bin $@,TESTFP.BIN
@@ -34,48 +38,45 @@ $(TEST_TARGET) : $(XDALI_BAS) $(XDALI_BIN) testuint.bin testfp.bin testmem.bin \
 	decb attr $@,TESTMEM.BIN -2 -b
 	decb copy testtstr.bin $@,TESTTSTR.BIN
 	decb attr $@,TESTTSTR.BIN -2 -b
-	decb copy mem.bin $@,MEM.BIN
-	decb attr $@,MEM.BIN -2 -b
 
-%.bin : %.c
-	cmoc $(CFLAGS) $< 
+all : $(TARGET) $(TEST_TARGET)
 
 
-$(XDALI_BIN) : xdali.c digital.c c_stuff.c time.c
-	cmoc $(CFLAGS) $< 
+testuint.bin: testuint.o c_stuff.o tester.o setjmp.o UInt32.o
+	cmoc $(CFLAGS) $(LDFLAGS) $^
 
-testuint.bin: testuint.c c_stuff.c tester.c setjmp.c UInt32.c
-	cmoc $(CFLAGS) $<
+testfp.bin: testfp.o c_stuff.o tester.o setjmp.o FixedPoint.o
+	cmoc $(CFLAGS) $(LDFLAGS) $^
 
-testfp.bin: testfp.c c_stuff.c tester.c setjmp.c FixedPoint.c
-	cmoc $(CFLAGS) $<
+testtstr.bin: testtstr.o c_stuff.o tester.o setjmp.o
+	cmoc $(CFLAGS) $(LDFLAGS) $^
+
+testmem.bin: testmem.o c_stuff.o tester.o setjmp.o
+	cmoc $(CFLAGS) $(LDFLAGS) $^
 
 
-testtstr.bin: testtstr.c c_stuff.c tester.c setjmp.c
-	cmoc $(CFLAGS) $<
+$(TARGET_BIN) : $(filter-out FixedPoint.o tester.o testuint.o testfp.o testtstr.o testmem.o, $(C_OBJS))
+	cmoc $(CFLAGS) $(LDFLAGS) -o $@ $^
 
-testmem.bin: testmem.c c_stuff.c tester.c setjmp.c
-	cmoc $(CFLAGS) $<
-
-mem.bin: mem.c
-	cmoc $(CFLAGS) $<
+%.o : %.c
+	cmoc $(CFLAGS) -c $<
 
 clean :
-	rm -rf $(TARGET) *.bin *.i *.lst *.asm *.hex
+	rm -rf $(TARGET) $(TEST_TARGET) $(C_OBJS) $(TARGET_BIN) testuint.bin testfp.bin testtstr.bin testmem.bin *.i *.lst *.asm *.hex
 
-build : $(TARGET)
+run : $(TARGET)
 	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TARGET) -cfg_directory ../cfgs/rgb
 
-run : $(TEST_TARGET)
+test : $(TEST_TARGET)
 	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TEST_TARGET) -cfg_directory ../cfgs/rgb
 
 run_cmp : $(TARGET)
-	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TEST_TARGET) -cfg_directory ../cfgs/cmp
+	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TARGET) -cfg_directory ../cfgs/cmp
 
 debug : $(TARGET)
-	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TEST_TARGET) -cfg_directory ../cfgs/rgb -debug
+	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TARGET) -cfg_directory ../cfgs/rgb -debug
 
 debug_cmp : $(TARGET)
-	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TEST_TARGET) -cfg_directory ../cfgs/cmp -debug
+	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TARGET) -cfg_directory ../cfgs/cmp -debug
 
 

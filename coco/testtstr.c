@@ -1,8 +1,6 @@
 #include <coco.h>
 #include "tester.h"
 
-#include "tester.c"
-
 
 void testAssertionsWhenTrue() {
   assertFalse(0);
@@ -20,13 +18,13 @@ void testAssertionsWhenTrue() {
 
 void testAssertTrue() {
   assertTrue(1);
-  assertTrue(0);
+  assertFalse(1);
 }
 
 
 void testAssertFalse() {
   assertFalse(0);
-  assertFalse(1);
+  assertTrue(0);
 }
 
 

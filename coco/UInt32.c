@@ -6,11 +6,9 @@
 */
 
 
-#ifndef _UInt32_c
-#define _UInt32_c
+#include <cmoc.h>
 
 #include "UInt32.h"
-#include "cmoc.h"
 
 
 /** Table holding powers of 10 */
@@ -639,5 +637,3 @@ void UInt32Parse(UInt32 *a, char *buffer) {
     UInt32Add(a, a, &tmp);
   }  
 }
-
-#endif

@@ -7,7 +7,15 @@
 
 // Last time that the time was updated.
 struct timeval _lastTime;
-UInt32 _xsecsUntilNextSecond = UInt32Init(0, 60);
+UInt32 _xsecsUntilNextSecond;
+UInt32 _one;
+UInt32 _sixty;
+void timeInit(void) {
+  UInt32Set(&_xsecsUntilNextSecond, 0, 60);
+  UInt32Set(&_one, 0, 1);
+  UInt32Set(&_sixty, 0, 60);
+  timeSet(2017, 11, 11, 11, 11, 11);
+}
 
 // Maps a 0 based month to the number of days in that month in a non-leap year.
 byte _daysPerMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -32,8 +40,6 @@ byte timeIsLeapYear(unsigned year) {
  * Should be invoked periodically (at least once every 10 minutes or so) to
  * ensure proper time keeping.
  */
-UInt32 _one = UInt32Init(0, 1);
-UInt32 _sixty = UInt32Init(0, 60);
 void timeTick() {
   unsigned timeLow = getTimer();
   if (timeLow < _lastTime.tv_xsec.Lo) {
@@ -116,9 +122,6 @@ byte timeSet(unsigned year, byte month, byte day, byte hour, byte minute, byte s
   _lastTime.tm.tm_sec = seconds;
   return TRUE;
 }
-
-
-byte __timeInit = timeSet(2016, 6, 26, 18, 23, 0);
 
 
 #endif

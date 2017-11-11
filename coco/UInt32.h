@@ -9,6 +9,8 @@
 #ifndef _UInt32_h
 #define _UInt32_h
 
+#include <coco.h>
+
 
 /** UInt32 data structure */
 typedef struct UInt32 {

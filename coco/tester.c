@@ -1,11 +1,9 @@
-#ifndef _tester_c
-#define _tester_c
-
 #include "tester.h"
 
-#include "tester.c"
-#include "setjmp.c"
+#include "setjmp.h"
 
+
+jmp_buf testJumpBuffer;
 
 void testFunctions(char *name, void *f, ...) {
   if (!name) {
@@ -28,5 +26,3 @@ void testFunctions(char *name, void *f, ...) {
   }
   va_end(ap);
 }
-
-#endif

@@ -6,10 +6,8 @@
 #include "setjmp.h"
 #include "c_stuff.h"
 
-#include "setjmp.c"
 
-
-jmp_buf testJumpBuffer;
+extern jmp_buf testJumpBuffer;
 
 #define assertTrue(val) { \
   if (!(val)) { \

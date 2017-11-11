@@ -4,10 +4,6 @@
 #include "c_stuff.h"
 #include "FixedPoint.h"
 
-#include "c_stuff.c"
-#include "FixedPoint.c"
-#include "tester.c"
-
 
 void testFixedPointToA() {
   FixedPoint val1 = FixedPointInit(0x1234, 0x0000);

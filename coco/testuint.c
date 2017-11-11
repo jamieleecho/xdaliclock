@@ -4,10 +4,6 @@
 #include "c_stuff.h"
 #include "UInt32.h"
 
-#include "c_stuff.c"
-#include "UInt32.c"
-#include "tester.c"
-
 
 void testUInt32Init() {
   UInt32 val = UInt32Init(0x1234, 0x5678);

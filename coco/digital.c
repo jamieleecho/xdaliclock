@@ -15,9 +15,9 @@
 #include "c_stuff.h"
 #include "time.h"
 
-#define extern
 #include "xdaliclock.h"
-#undef extern
+
+char *progname = "XDALICLOCK";
 
 #define DO_TEXTURE	/* Create LUMINANCE_ALPHA data instead of a bitmap */
 #define BIGENDIAN	/* Bit ordering if creating a single-bit bitmap */
@@ -64,24 +64,10 @@ struct raw_number {
 # include "slashF.xbm"
 FONT(F);
 
-# include "zeroG.xbm"
-# include "oneG.xbm"
-# include "twoG.xbm"
-# include "threeG.xbm"
-# include "fourG.xbm"
-# include "fiveG.xbm"
-# include "sixG.xbm"
-# include "sevenG.xbm"
-# include "eightG.xbm"
-# include "nineG.xbm"
-# include "colonG.xbm"
-# include "slashG.xbm"
-FONT(G);
-
 #undef static
 
 struct raw_number * all_numbers[] = {
- numbers_F, numbers_G,
+ numbers_F
 };
 
 /* _step_cache(delta, timestep) */

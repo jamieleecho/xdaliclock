@@ -6,4 +6,5 @@
 *.dsk
 .*.swp
 .DS_Store
+*.o
 

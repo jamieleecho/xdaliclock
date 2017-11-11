@@ -1,5 +1,3 @@
-#pragma org 0x3000
-
 /* xdaliclock - a melting digital clock
  * Copyright (c) 1991-2010 Jamie Zawinski <jwz@jwz.org>
  * CoCo Version - Copyright (c) 2016 Jamie Cho <jamieleecho@gmail.com>
@@ -16,11 +14,10 @@
 
 #include <coco.h>
 
-/* CMOC does not support linking */
-#include "digital.c"
-#include "c_stuff.c"
-#include "time.c"
-#include "UInt32.c"
+#include "c_stuff.h"
+#include "digital.h"
+#include "time.h"
+#include "UInt32.h"
 
 
 struct simple_date_time {
@@ -96,6 +93,8 @@ byte MyInkey() {
 
 int main () {
   initCoCoSupport();
+  heapInit();
+  timeInit();
   setHighSpeed(TRUE);
   width(32);
 

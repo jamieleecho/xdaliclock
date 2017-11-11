@@ -3,9 +3,6 @@
 #include "tester.h"
 #include "UInt32.h"
 
-#include "c_stuff.c"
-#include "tester.c"
-
 
 void testCallocReturnsNewMem() {
   char *mem1 = (char *)calloc(1, 12);
@@ -54,12 +51,12 @@ void testFreeDefragsMem() {
 
 
 void testBigMemAlloc() {
-  char *mem1 = (char *)calloc(1, 0x4000 - 5);
+  char *mem1 = (char *)calloc(1, 0x3a00 - 5);
   assertNotEqual((int)mem1, 0);
-  char *mem2 = (char *)calloc(1, 0x4000 - 5);
+  char *mem2 = (char *)calloc(1, 0x3a00 - 5);
   assertEqual((int)mem2, 0);
   free(mem1);
-  char *mem3 = (char *)calloc(1, 0x4000 - 11);
+  char *mem3 = (char *)calloc(1, 0x3a00 - 11);
   assertEqual(mem1, mem3);
   char *mem4 = (char *)calloc(1, 1);
   assertGreaterThan(mem4, mem3);
@@ -103,6 +100,7 @@ void testHolyAlloc() {
 
 int main() {
   initCoCoSupport();
+  heapInit();
   width(80);
 
   // Test memory allocation
