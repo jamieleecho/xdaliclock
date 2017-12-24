@@ -14,22 +14,15 @@
 #include <cmoc.h>
 #include "c_stuff.h"
 #include "time.h"
+#include "coco.h"
 
 #include "xdaliclock.h"
+#include "digital.h"
 
 char *progname = "XDALICLOCK";
 
 #define DO_TEXTURE	/* Create LUMINANCE_ALPHA data instead of a bitmap */
 #define BIGENDIAN	/* Bit ordering if creating a single-bit bitmap */
-
-typedef unsigned byte POS;
-typedef unsigned char BOOL;
-
-/* static int use_builtin_font; */
-struct raw_number {
-  unsigned char *bits;
-  POS width, height;
-};
 
 #define FONT(X)								\
  static struct raw_number numbers_ ## X [] = {			\
@@ -85,33 +78,6 @@ byte _step_cache[8][32];
 #ifndef MAX_SEGS_PER_LINE
 # define MAX_SEGS_PER_LINE 2
 #endif
-
-struct scanline {
-  POS left[MAX_SEGS_PER_LINE], right[MAX_SEGS_PER_LINE];
-};
-
-struct frame {
-  struct scanline scanlines [1]; /* scanlines are contiguous here */
-};
-
-
-/* The runtime settings (some initialized from system prefs, but changable.)
- */
-struct render_state {
-  byte current_frame; /* 0->10, 0->7 are animation and 8-10 are hold */
-  int char_width, char_height, colon_width;
-  struct frame *base_frames [12];	/* all digits */
-  struct frame *orig_frames [8];	/* what was there */
-  byte          orig_digits [8];	/* what was there */
-  struct frame *current_frames [8];	/* current intermediate animation */
-  struct frame *target_frames [8];	/* where we are going */
-  byte          target_digits [8];	/* where we are going */
-  struct frame *empty_frame;
-  struct frame *empty_colon;
-  byte time_mode;
-  byte date_mode;
-  byte force_refresh;
-};
 
 
 struct frame *

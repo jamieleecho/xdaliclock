@@ -19,12 +19,13 @@
 #include "time.h"
 
 #include "xdaliclock.h"
+#include "digital.h"
 
 #define DO_TEXTURE	/* Create LUMINANCE_ALPHA data instead of a bitmap */
 #define BIGENDIAN	/* Bit ordering if creating a single-bit bitmap */
 
-typedef unsigned byte POS;
-typedef unsigned char BOOL;
+#define POS unsigned char
+#define BOOL unsigned char
 
 /* static int use_builtin_font; */
 struct raw_number {
