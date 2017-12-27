@@ -7,4 +7,6 @@
 .*.swp
 .DS_Store
 *.o
-
+*.s
+*.map
+*.link

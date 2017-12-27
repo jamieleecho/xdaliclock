@@ -62,7 +62,7 @@ $(TARGET_BIN) : $(filter-out FixedPoint.o tester.o testuint.o testfp.o testtstr.
 	cmoc $(CFLAGS) -c $<
 
 clean :
-	rm -rf $(TARGET) $(TEST_TARGET) $(C_OBJS) $(TARGET_BIN) testuint.bin testfp.bin testtstr.bin testmem.bin *.i *.lst *.asm *.hex
+	rm -rf $(TARGET) $(TEST_TARGET) $(C_OBJS) $(TARGET_BIN) testuint.bin testfp.bin testtstr.bin testmem.bin *.i *.lst *.asm *.hex *.link *.s *.map
 
 run : $(TARGET)
 	$(MESS) coco3 -rompath $(MESS_DIR)/roms -window -flop1 $(TARGET) -cfg_directory ../cfgs/rgb
