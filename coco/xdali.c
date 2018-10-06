@@ -116,8 +116,8 @@ int main () {
 
   render_init(&daliConfig);
   memset(daliConfig.bitmap, 0xff, 6144);
-  showGraphicsAddress(7);
-  showPmode4(1);
+  pmode(4, daliConfig.bitmap);
+  screen(1, 1);
 
   UInt32 displayTimeTime;
   UInt32 five = UInt32Init(0, 5);

@@ -17,12 +17,11 @@ This version of xdaliclock is a port of [Jamie Zawinski's](https://www.jwz.org/)
 ## Building xdaliclock
 ### Requirements
 * Unix-like system such as Linux or macOS with typical developer tools
-* [CMOC](http://perso.b2b2c.ca/~sarrazip/dev/cmoc.html)
-* [LWTOOLS](http://lwtools.projects.l-w.ca)
+* [Docker](https://www.docker.com/products/docker-desktop)
 * [MESS] (http://www.mess.org) and required coco roms
 
 ### Building and Running
 ```
 cd xdaliclock/coco
-make build
+./build
 ```

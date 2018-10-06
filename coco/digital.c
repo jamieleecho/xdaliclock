@@ -19,7 +19,7 @@
 #include "xdaliclock.h"
 #include "digital.h"
 
-char *progname = "XDALICLOCK";
+const char *progname = "XDALICLOCK";
 
 #define DO_TEXTURE	/* Create LUMINANCE_ALPHA data instead of a bitmap */
 #define BIGENDIAN	/* Bit ordering if creating a single-bit bitmap */

@@ -16,7 +16,7 @@
 #include "c_stuff.h"
 #include "time.h"
 
-extern char *progname;
+extern const char *progname;
 
 struct render_state;
 

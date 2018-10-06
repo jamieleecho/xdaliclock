@@ -1,4 +1,4 @@
-CFLAGS=-O2 -I../font 
+CFLAGS=-O2 -I../font
 LDFLAGS=--org=0x2a00 --limit=0x7fff
 TARGET=xdali.dsk
 TARGET_BAS=$(TARGET:.dsk=.bas)
