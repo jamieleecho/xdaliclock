@@ -116,7 +116,7 @@ extern jmp_buf testJumpBuffer;
 /**
  * Executes test functions with the given name, f combinations.
  */
-void testFunctions(char *name, void *f, ...);
+void testFunctions(char *name, void (*f)(), ...);
 
 #endif
 

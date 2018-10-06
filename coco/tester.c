@@ -5,7 +5,7 @@
 
 jmp_buf testJumpBuffer;
 
-void testFunctions(char *name, void *f, ...) {
+void testFunctions(char *name, void (*f)(), ...) {
   if (!name) {
     return;
   }

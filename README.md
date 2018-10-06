@@ -1,10 +1,12 @@
 # xdaliclock
 This version of xdaliclock is a port of [Jamie Zawinski's](https://www.jwz.org/) [xdaliclock](https://www.jwz.org/xdaliclock/) to the Tandy/TRS-80 [Color Computer](https://en.wikipedia.org/wiki/TRS-80_Color_Computer).
 
+
 ## Features
 * Digital clock that morphs digits into their new shape when they change.
 * Works on any Color Computer with a disk drive and 32KB RAM.
 * Automatically runs at 1.78MHz on the Color Computer 3.
+
 
 ## Running xdaliclock
 * Insert the disk or virtual disk into `DRIVE 0`.
@@ -14,14 +16,23 @@ This version of xdaliclock is a port of [Jamie Zawinski's](https://www.jwz.org/)
 * Different date formatting can be selected by pressing 4, 5 or 6.
 * The date can be displayed momentarily by pressing the spacebar.
 
-## Building xdaliclock
 ### Requirements
 * Unix-like system such as Linux or macOS with typical developer tools
 * [Docker](https://www.docker.com/products/docker-desktop)
 * [MESS] (http://www.mess.org) and required coco roms
+* CoCo 3 ROMs installed in MAME
 
-### Building and Running
+
+## Building and Running
+To build and run:
 ```
-cd xdaliclock/coco
+cd coco
 ./build
+make run
+```
+
+To clean everything:
+```
+cd coco
+./build clean
 ```
